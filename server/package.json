@@ -1,0 +1,36 @@
+{
+  "name": "server",
+  "version": "0.0.0",
+  "engineStrict": true,
+  "engines": {
+    "node": ">= 10.13 <11"
+  },
+  "devDependencies": {
+    "@types/bull": "^3.4.1",
+    "@types/jest": "~23.3.9",
+    "@types/node": "~10",
+    "jest": "~23.6.0",
+    "prettier": "1.15.2",
+    "rimraf": "~2.6.2",
+    "ts-jest": "~23.10.5",
+    "tslint": "~5.11.0",
+    "tslint-config-prettier": "1.16.0",
+    "tslint-microsoft-contrib": "~5.2.1",
+    "tsutils": "~3.5.0",
+    "typescript": "~3.1.6"
+  },
+  "scripts": {
+    "clean": "rimraf coverage build tmp",
+    "build": "tsc -p tsconfig.release.json",
+    "build:watch": "tsc -w -p tsconfig.release.json",
+    "lint": "tslint -t stylish --project \"tsconfig.json\"",
+    "test": "jest --coverage",
+    "test:watch": "jest --watch",
+    "start": "node build/src/main.js"
+  },
+  "dependencies": {
+    "bull": "^3.5.2",
+    "tslib": "~1.9.3"
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,10 @@
+{
+  "name": "bull-arena-typescript-dockerize",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "start": "docker-compose -f docker-compose.yml up -d",
+    "start:rebuild": "docker-compose -f docker-compose.yml up --build -d",
+    "shutdown": "docker-compose -f docker-compose.yml down"
+  }
+}

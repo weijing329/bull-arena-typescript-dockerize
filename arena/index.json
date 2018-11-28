@@ -1,0 +1,16 @@
+{
+  "queues": [
+    {
+      "name": "tx-in-queue",
+      "hostId": "demo",
+      "prefix": "bull",
+      "url": "redis://redis:6379/0"
+    },
+    {
+      "name": "tx-out-queue",
+      "hostId": "demo",
+      "prefix": "bull",
+      "url": "redis://redis:6379/0"
+    }
+  ]
+}

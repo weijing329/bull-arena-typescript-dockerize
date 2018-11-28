@@ -4,7 +4,13 @@
   "license": "MIT",
   "scripts": {
     "start": "docker-compose -f docker-compose.yml up -d",
-    "start:rebuild": "docker-compose -f docker-compose.yml up --build -d",
-    "shutdown": "docker-compose -f docker-compose.yml down"
+    "start:dev": "docker-compose -f docker-compose.development.yml up -d && yarn server:dev",
+    "server:install": "yarn --cwd 'server' install",
+    "server:dev": "yarn --cwd 'server' dev",
+    "server:rebuild": "docker-compose -f docker-compose.yml up --build --force-recreate -d server",
+    "stop": "docker-compose -f docker-compose.yml stop",
+    "stop:dev": "docker-compose -f docker-compose.development.yml stop",
+    "clean-up": "docker-compose -f docker-compose.yml down --rmi local",
+    "clean-up:all": "docker-compose -f docker-compose.yml down --rmi all"
   }
 }

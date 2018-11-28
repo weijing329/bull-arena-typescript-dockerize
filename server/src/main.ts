@@ -1,39 +1,46 @@
-/**
- * Some predefined delays (in milliseconds).
- */
-export enum Delays {
-  Short = 500,
-  Medium = 2000,
-  Long = 5000,
+let crypto;
+try {
+  crypto = require('crypto');
+} catch (err) {
+  console.log('crypto support is disabled!');
 }
 
-/**
- * Returns a Promise<string> that resolves after given time.
- *
- * @param {string} name - A name.
- * @param {number=} [delay=Delays.Medium] - Number of milliseconds to delay resolution of the Promise.
- * @returns {Promise<string>}
- */
-function delayedHello(
-  name: string,
-  delay: number = Delays.Medium,
-): Promise<string> {
-  return new Promise((resolve: (value?: string) => void) =>
-    setTimeout(() => resolve(`Hello, ${name}`), delay),
-  );
+function sha3(obj: Object) {
+  const stringifiedObj: string = JSON.stringify(obj);
+
+  const secret = 'abcdefg';
+  const hash = crypto.createHmac('sha256', secret)
+                      .update(stringifiedObj)
+                      .digest('hex');
+  
+  return `0x${hash}`;
 }
 
-// Below are examples of using TSLint errors suppression
-// Here it is suppressing missing type definitions for greeter function
+import Queue = require('bull');
 
-// tslint:disable-next-line typedef
-export async function greeter(name) {
-  // tslint:disable-next-line no-unsafe-any no-return-await
-  return await delayedHello(name, Delays.Long);
+const REDIS_URL = process.env.REDIS_URL;
+
+const txInQueue = new Queue('tx-in-queue', REDIS_URL);
+const txOutQueue = new Queue('tx-out-queue', REDIS_URL);
+
+interface Transaction {
+  data: string
 }
+
+txInQueue.process((job: Queue.Job<Transaction>, done) => {
+  job.progress(38);
+
+  const txHash: string = sha3(job.data);
+
+  job.progress(87);
+
+  txOutQueue.add({txHash});
+
+  done();
+})
 
 async function main() {
-  console.log(await greeter('Wayne'))
+  txInQueue.add({data: new Date().toISOString()} as Transaction, {repeat: {cron: '*/5 * * * * *'}})
 }
 
 main()

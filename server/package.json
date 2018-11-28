@@ -26,7 +26,7 @@
     "lint": "tslint -t stylish --project \"tsconfig.json\"",
     "test": "jest --coverage",
     "test:watch": "jest --watch",
-    "start": "node build/src/main.js"
+    "start": "node build/main.js"
   },
   "dependencies": {
     "bull": "^3.5.2",

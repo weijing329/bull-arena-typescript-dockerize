@@ -6,7 +6,8 @@
 {
   "extends": [
     "tslint-microsoft-contrib",
-    "tslint-config-prettier"
+    "tslint-config-prettier",
+    "tslint-plugin-prettier"
   ],
   "rules": {
     "mocha-no-side-effect-code": false,
@@ -16,6 +17,8 @@
     "promise-function-async": false,
     "no-void-expression": false,
     "no-redundant-jsdoc": false,
+    "prettier": true,
+    "prefer-const": true,
     "prefer-type-cast": false,
     "typedef": [
       true,

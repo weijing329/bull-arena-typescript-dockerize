@@ -11,26 +11,41 @@ interface ITransaction {
   data: string;
 }
 
-txInQueue.process((job: Queue.Job<ITransaction>, done: Queue.DoneCallback) => {
-  job.progress(38);
+async function delay(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
-  const txHash: string = sha3(job.data);
+function repeat(n: number, cb: () => void) {
+  [...Array(n)].forEach(cb);
+}
 
-  job.progress(87);
+txInQueue.process(
+  async (job: Queue.Job<ITransaction>, done: Queue.DoneCallback) => {
+    await delay(5000);
 
-  txOutQueue.add({ txHash });
+    job.progress(38);
 
-  done();
-});
+    const txHash: string = sha3(job.data);
+
+    job.progress(87);
+
+    txOutQueue.add({ txHash });
+
+    done();
+  },
+);
 
 async function main() {
-  txInQueue.add(
-    { data: new Date().toISOString() },
-    {
-      delay: 100,
-      repeat: { cron: '*/5 * * * * *' },
-    },
-  );
+  repeat(10, () => {
+    txInQueue.add({ data: new Date().toISOString() });
+  });
+  // txInQueue.add(
+  //   { data: new Date().toISOString() },
+  //   {
+  //     delay: 100,
+  //     repeat: { every: 5000, limit: 10 },
+  //   },
+  // );
 }
 
 main();

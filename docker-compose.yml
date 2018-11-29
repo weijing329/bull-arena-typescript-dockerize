@@ -14,7 +14,7 @@ services:
     environment:
       - REDIS_URL=redis://redis:6379/0
     volumes:
-      - yarn:/home/node/.cache/yarn
+      - yarn:/usr/local/share/.cache/yarn/v2
 
   arena:
     image: weijing329/bee-queue-arena:v2.5.0

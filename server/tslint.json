@@ -10,20 +10,51 @@
     "tslint-plugin-prettier"
   ],
   "rules": {
-    "mocha-no-side-effect-code": false,
-    "missing-jsdoc": false,
-    "no-relative-imports": false,
+    "array-type": [true, "generic"],
+    "arrow-return-shorthand": [true, "multiline"],
+    "class-name": true,
+    "comment-format": [true, "check-space"],
     "export-name": false,
-    "promise-function-async": false,
-    "no-void-expression": false,
+    "interface-over-type-literal": true,
+    "no-angle-bracket-type-assertion": false,
+    "no-empty": [true, "allow-empty-catch", "allow-empty-functions"],
+    "no-internal-module": true,
+    "no-null-keyword": false, // disabled for JS / TS mixed project
+    "no-object-literal-type-assertion": true,
     "no-redundant-jsdoc": false,
+    "no-relative-imports": false,
+    "no-shadowed-variable": [
+      true,
+      {
+        "class": true,
+        "enum": true,
+        "function": true,
+        "interface": false,
+        "namespace": true,
+        "typeAlias": false,
+        "typeParameter": false
+      }
+    ],
+    "no-var-keyword": true,
+    "no-void-expression": false,
+    "member-ordering": [true, { "order": "fields-first" }],
+    "missing-jsdoc": false,
+    "mocha-no-side-effect-code": false,
+    "object-literal-sort-keys": false,
     "prettier": true,
     "prefer-const": true,
+    "prefer-method-signature": true,
     "prefer-type-cast": false,
+    "promise-function-async": false,
+    "variable-name": [
+      true,
+      "ban-keywords",
+      // "check-format",
+      "allow-leading-underscore"
+    ],
     "typedef": [
       true,
       "parameter",
-      "arrow-parameter",
       "property-declaration",
       "member-variable-declaration"
     ]
